@@ -1,0 +1,8 @@
+# escape=`
+FROM @BASEIMAGE@
+SHELL ["cmd", "/S", "/C"]
+ADD setup-x86_64.exe /
+RUN setup-x86_64.exe -s http://ftp.iij.ad.jp/pub/cygwin -R c:\cyg64 -l c:\cache64 -B -v -q -N -d -g -P  git,gcc,gcc-g++,ninja,cmake && rmdir c:\cache64 /s /q
+ADD noaslr-cygwin1.dll /
+RUN move \noaslr-cygwin1.dll c:\cyg64\bin\cygwin1.dll
+ENV YUNIBUILD_IMAGE_TYPE=cygwin64
