@@ -11,7 +11,8 @@ RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tl
   msys 'pacman --noconfirm -Syuu'; \
   msys 'pacman --noconfirm -Syuu'; \
   msys 'pacman --noconfirm -Scc'; \
-  msys 'pacman --noconfirm -S git cmake python ninja mingw-w64-ucrt-x86_64-toolchain base-devel'; \
+  msys 'pacman --noconfirm -S mingw-w64-ucrt-x86_64-python mingw-w64-ucrt-x86_64-ninja mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-toolchain'; \
   msys 'pacman --noconfirm -Scc'; 
 
+RUN setx PATH "c:\msys64\ucrt64\bin"
 ENV YUNIBUILD_IMAGE_TYPE=yunimingw-x64-ucrt-msys2
