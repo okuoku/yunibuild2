@@ -13,7 +13,7 @@ RUN mkdir -p /opt/android/cmdline-tools
 RUN cp -rp /cmdline-tools /opt/android/cmdline-tools/latest
 
 # Phase2
-FROM ubuntu:latest
+FROM --platform=linux/amd64 ubuntu:latest
 COPY --from=opt-extract /opt /opt
 # cmake ninja-build are only for script running
 RUN apt update && apt upgrade -y && apt install -y default-jdk cmake ninja-build
