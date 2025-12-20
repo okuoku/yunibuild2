@@ -1,4 +1,4 @@
-foreach(osversion ltsc2025)
+foreach(osversion ltsc2025 ltsc2025-arm64)
     # ltsc2025: Current
     # ltsc2022: Standard baseimage(LTSC2022 for GitHub Actions)
     # 2004: On Windows10, 2004 is only suitable image for it

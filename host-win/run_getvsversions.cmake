@@ -1,35 +1,14 @@
 # Export component lists
-
-# Install https://github.com/Microsoft/vssetup.powershell from NuGet
-execute_process(
-    COMMAND
-    powershell Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser
-    RESULT_VARIABLE rr
-)
-if(rr)
-    message(FATAL_ERROR "Failed to install NuGet")
-endif()
-
-execute_process(
-    COMMAND
-    powershell Install-Module VSSetup -Scope CurrentUser -Force
-    RESULT_VARIABLE rr)
-
-if(rr)
-    message(FATAL_ERROR "Failed to install VSSetup module")
-endif()
-
 execute_process(
     COMMAND
     powershell -ExecutionPolicy RemoteSigned "(Get-VSSetupInstance | Select-VSSetupInstance -Product *) | ConvertTo-Json"
-    OUTPUT_FILE vssetup.json
+    OUTPUT_FILE vssetup.json # FIXME: Won't be a JSON if no VS on the system
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
     RESULT_VARIABLE rr)
 
 if(rr)
     message(FATAL_ERROR "Failed to query VS packages")
 endif()
-
-return()
 
 # Export installation config
 # FIXME: Fill it with powershell
