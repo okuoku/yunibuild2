@@ -7,7 +7,7 @@ ADD https://www.python.org/ftp/python/3.12.3/python-3.12.3-embed-amd64.zip /
 RUN powershell Expand-Archive -Path c:\python-3.12.3-embed-amd64.zip -DestinationPath c:\python3
 
 FROM @BASEIMAGE@
-COPY --from=before-python /python3 /
+COPY --from=before-python /python3 /python3
 
 # Setup VS17
 ADD https://aka.ms/vs/17/release/vs_buildtools.exe /
