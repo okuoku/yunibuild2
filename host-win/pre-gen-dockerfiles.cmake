@@ -8,7 +8,7 @@ foreach(osversion ltsc2025 ltsc2025-arm64)
     else()
         set(label ${osversion})
     endif()
-    foreach(tool cygwin msys2-ucrt64 msys2-i686 msvc17-amd64)
+    foreach(tool cygwin msys2-ucrt64 msys2-i686 msvc17-base)
         configure_file(${CMAKE_CURRENT_LIST_DIR}/Dockerfile-${tool}.in
             ${CMAKE_CURRENT_LIST_DIR}/Dockerfile-${tool}.${label}
             @ONLY)

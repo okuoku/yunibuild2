@@ -1,0 +1,7 @@
+FROM yunibuild-msvc17-new
+SHELL ["cmd", "/S", "/C"]
+
+# Brand as arm64
+RUN setx PATH "c:\python3;%PATH%"
+ENV YUNIBUILD_IMAGE_TYPE=yunimsvc17-arm64
+ENTRYPOINT ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\Tools\\VsDevCmd.bat", "-arch=arm64", "&&", "cmd","/S","/C"]

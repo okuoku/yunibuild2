@@ -1,10 +1,13 @@
 # escape=`
-FROM @BASEIMAGE@
+FROM @BASEIMAGE@ as before-python
 SHELL ["cmd", "/S", "/C"]
 
 # Extract Python3
 ADD https://www.python.org/ftp/python/3.12.3/python-3.12.3-embed-amd64.zip /
 RUN powershell Expand-Archive -Path c:\python-3.12.3-embed-amd64.zip -DestinationPath c:\python3
+
+FROM @BASEIMAGE@
+COPY --from=before-python /python3 /
 
 # Setup VS17
 ADD https://aka.ms/vs/17/release/vs_buildtools.exe /
@@ -23,7 +26,4 @@ COPY install-vssetup.ps1 .
 RUN powershell -File install-vssetup.ps1
 RUN del install-vssetup.ps1
 
-# Brand as amd64
-RUN setx PATH "c:\python3;%PATH%"
-ENV YUNIBUILD_IMAGE_TYPE=yunimsvc17-amd64
-ENTRYPOINT ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\Tools\\VsDevCmd.bat", "-arch=amd64", "&&", "cmd","/S","/C"]
+# This image needs to be tagged as yunibuild-msvc17-new
